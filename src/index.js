@@ -1,19 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App';
 import * as serviceWorker from './actions/serviceWorker';
 
-import ReduxPromise from 'redux-promise';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import { BrowserRouter, Route } from 'react-router-dom'
+
+import ReduxPromise from 'redux-promise';
 import reducers from './reducers';
+import PostsIndex from './components/posts-index';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore)
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
+    <BrowserRouter>
+      <div>
+        <Route path="/" component={PostsIndex} />
+      </div>
+    </BrowserRouter>
   </Provider>  
   , document.getElementById('root'));
 
