@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const ROOT_URL = 'http://localhost:3001'
+const ROOT_URL = 'http://localhost:3001/api/v1'
+
+export const FETCH_POSTS = 'fetch_posts';
+export const CREATE_POST = 'create_post';
 
 export function fetchPosts() {
   const request = axios.get(`${ROOT_URL}/posts`);
@@ -10,4 +13,11 @@ export function fetchPosts() {
   };
 }
 
-export const FETCH_POSTS = 'fetch_posts';
+export function createPost(values, callback) {
+  const request = axios.post(`${ROOT_URL}/posts`, values)
+    .then( () => callback() );
+  return {
+    type: CREATE_POST,
+    payload: request
+  };
+}
