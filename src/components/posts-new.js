@@ -26,15 +26,19 @@ class PostsNew extends Component {
   }
 
   onSubmit(values) {
+    console.log('History: ', this.props.history)
     this.props.createPost(values, () => {
-      this.props.history.push('/'); // Naviagates back to '/'
+      // Naviagates back to '/' ( using React Router <Route /> in src/index.js )
+      this.props.history.push('/');
     });
   }
 
   render() {
+    // handleSubmit is a prop from redux-form
     const { handleSubmit } = this.props;
 
     return(
+      // handleSubmit runs redux-form checks, then calls onSubmit callback function
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field
           formLabel="Title"

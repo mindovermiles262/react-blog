@@ -4,6 +4,8 @@ const ROOT_URL = 'http://localhost:3001/api/v1'
 
 export const FETCH_POSTS = 'fetch_posts';
 export const CREATE_POST = 'create_post';
+export const FETCH_POST = 'fetch_post';
+export const DELETE_POST = 'delete_post';
 
 export function fetchPosts() {
   const request = axios.get(`${ROOT_URL}/posts`);
@@ -21,3 +23,21 @@ export function createPost(values, callback) {
     payload: request
   };
 }
+
+export function fetchPost(id) {
+  const request = axios.get(`${ROOT_URL}/posts/${id}`);
+  return {
+    type: FETCH_POST,
+    payload: request
+  };
+}
+
+export function deletePost(id, callback) {
+  const request = axios.delete(`${ROOT_URL}/posts/${id}`)
+    .then( () => callback() );
+  return {
+    type: DELETE_POST,
+    payload: id
+  }
+}
+
